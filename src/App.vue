@@ -17,6 +17,8 @@
       </ul>
     </p>
     <input v-model="roomId" placeholder="Enter room ID" id="room-input"/>
+    <br>
+    <a :href="`https://meet.jcompsolu.com/#${roomId}`" target="_blank">Share Meeting</a>
     <vue-webrtc id="call-canvas" width="100%" :roomId="roomId" ref="webrtc" v-on:share-started="shareStarted"  v-on:share-stopped="leftRoom" v-on:left-room="leftRoom" v-on:joined-room="joinedRoom"/>
     <button type="button" id="join-btn" @click="toggleRoom">{{hasJoined ? 'Leave Room' : 'Join Room'}}</button>
     <button type="button" id="screen-share-btn" @click="screenShare" v-if="hasJoined">Screen Share</button>
@@ -36,7 +38,13 @@ export default {
       userStream: null
     }
   },
-  mounted () {},
+  mounted () {
+    const hash =  window.location.hash
+    if(hash != '') {
+      this.roomId = hash.substring(1)
+      this.toggleRoom()
+    }
+  },
   methods: {
     onStop () {
       var blob = new Blob(this.chunks, { 'type' : 'video/webm' }); // other types are available such as 'video/webm' for instance, see the doc for more info
