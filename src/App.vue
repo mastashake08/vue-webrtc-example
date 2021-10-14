@@ -1,14 +1,14 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" class="animate-fade-slow object-contain h-80 w-full">
+    <img alt="Vue logo" src="./assets/default-monochrome-white.svg" class="animate-fade-slow object-contain h-80 w-full">
     <Adsense
       data-ad-client="ca-pub-7023023584987784"
       data-ad-slot="5070366491">
     </Adsense>
-    <vue-webrtc width="100%" :roomId="roomId" ref="webrtc" v-on:share-started="shareStarted"  v-on:share-stopped="leftRoom" v-on:left-room="leftRoom" v-on:joined-room="joinedRoom"/>
-    <input v-model="roomId" placeholder="Enter room ID"/>
-    <button type="button" class="ml-5" @click="toggleRoom">{{hasJoined ? 'Leave Room' : 'Join Room'}}</button>
-    <button type="button" class="ml-5" @click="screenShare" v-if="hasJoined">Screen Share</button>
+    <input v-model="roomId" placeholder="Enter room ID" id="room-input"/>
+    <vue-webrtc id="call-canvas" width="100%" :roomId="roomId" ref="webrtc" v-on:share-started="shareStarted"  v-on:share-stopped="leftRoom" v-on:left-room="leftRoom" v-on:joined-room="joinedRoom"/>
+    <button type="button" id="join-btn" @click="toggleRoom">{{hasJoined ? 'Leave Room' : 'Join Room'}}</button>
+    <button type="button" id="screen-share-btn" @click="screenShare" v-if="hasJoined">Screen Share</button>
     <!-- <button @click="record" v-if="hasJoined" v->Record</button> -->
   </div>
 </template>
@@ -99,6 +99,12 @@ export default {
 </script>
 
 <style>
+#room-input {
+  margin-bottom: 3px;
+}
+#call-canvas {
+  background-color: transparent;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -106,5 +112,15 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+#join-btn {
+  margin: 4px 2px;
+}
+body {
+  background-image: linear-gradient(to bottom right, #E9007F, #FEA134);
+}
+img {
+  height: 80px;
+  width: 100%;
 }
 </style>
