@@ -1,10 +1,10 @@
 <template>
   <div id="app">
+    <img alt="Vue logo" src="./assets/logo.png" class="animate-fade-slow object-contain h-80 w-full">
     <Adsense
       data-ad-client="ca-pub-7023023584987784"
       data-ad-slot="5070366491">
     </Adsense>
-    <img alt="Vue logo" src="./assets/logo.png" class="animate-fade-slow object-contain h-80 w-full">
     <vue-webrtc width="100%" :roomId="roomId" ref="webrtc" v-on:share-started="shareStarted"  v-on:share-stopped="leftRoom" v-on:left-room="leftRoom" v-on:joined-room="joinedRoom"/>
     <input v-model="roomId" placeholder="Enter room ID"/>
     <button type="button" class="ml-5" @click="toggleRoom">{{hasJoined ? 'Leave Room' : 'Join Room'}}</button>
