@@ -18,7 +18,7 @@
     </p>
     <input v-model="roomId" placeholder="Enter room ID" id="room-input"/>
     <br>
-    <a :href="`https://meet.jcompsolu.com/#${roomId}`" target="_blank">Share Meeting</a>
+    <button @click="copyClipboard">Share Meeting</button>
     <vue-webrtc id="call-canvas" width="100%" :roomId="roomId" ref="webrtc" v-on:share-started="shareStarted"  v-on:share-stopped="leftRoom" v-on:left-room="leftRoom" v-on:joined-room="joinedRoom"/>
     <button type="button" id="join-btn" @click="toggleRoom">{{hasJoined ? 'Leave Room' : 'Join Room'}}</button>
     <button type="button" id="screen-share-btn" @click="screenShare" v-if="hasJoined">Screen Share</button>
@@ -112,6 +112,10 @@ export default {
     leftRoom (streamId) {
       // this.mediaRecorder.removeTrack(streamId)
       console.log(streamId)
+    },
+    async copyClipboard () {
+      await navigator.clipboard.writeText(`https://meet.jcompsolu.com/#${this.roomId}`)
+      alert('Link copied to clipboard!')
     }
   }
 }
