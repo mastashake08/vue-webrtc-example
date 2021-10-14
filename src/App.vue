@@ -5,6 +5,17 @@
       data-ad-client="ca-pub-7023023584987784"
       data-ad-slot="5070366491">
     </Adsense>
+    <p>
+      J Comp Meet is a free open source WebRTC meeting application written in Vue.js. Simply enter
+      a meeting room ID and connect to anyone else in that room! You can even share your screen
+      if you are on desktop! Future functionality will include:
+      <ul>
+        <li> Record meeting </li>
+        <li> Text chat </li>
+        <li> Send files </li>
+        <li> And more! </li>
+      </ul>
+    </p>
     <input v-model="roomId" placeholder="Enter room ID" id="room-input"/>
     <vue-webrtc id="call-canvas" width="100%" :roomId="roomId" ref="webrtc" v-on:share-started="shareStarted"  v-on:share-stopped="leftRoom" v-on:left-room="leftRoom" v-on:joined-room="joinedRoom"/>
     <button type="button" id="join-btn" @click="toggleRoom">{{hasJoined ? 'Leave Room' : 'Join Room'}}</button>
