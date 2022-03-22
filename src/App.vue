@@ -7,20 +7,6 @@
       data-ad-client="ca-pub-7023023584987784"
       data-ad-slot="5070366491">
     </Adsense>
-    <div class="container mx-auto px-4 py-4 bg-white-300">
-      <p class="content-center">
-        J Comp Meet is a free open source WebRTC meeting application written in Vue.js. Simply enter
-        a meeting room ID and connect to anyone else in that room! You can even share your screen
-        if you are on desktop! Future functionality will include:
-        <ul>
-          <li> Record meeting </li>
-          <li> Text chat </li>
-          <li> Send files </li>
-          <li> And more! </li>
-        </ul>
-      </p>
-    </div>
-
     <div class="flex mb-4 mt-4 ml-4 mr-4 pb-4">
         <div class="w-full content-center h-12">
           <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -41,6 +27,21 @@
         </form>
       </div>
     </div>
+
+    <div class="container mx-auto px-4 py-4 bg-white-300">
+      <p class="content-center">
+        J Comp Meet is a free open source WebRTC meeting application written in Vue.js. Simply enter
+        a meeting room ID and connect to anyone else in that room! You can even share your screen
+        if you are on desktop! Future functionality will include:
+        <ul>
+          <li> Record meeting </li>
+          <li> Text chat </li>
+          <li> Send files </li>
+          <li> And more! </li>
+        </ul>
+      </p>
+    </div>
+
 
   </div>
 </template>
