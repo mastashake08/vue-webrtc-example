@@ -19,7 +19,7 @@
           <div class="flex items-center justify-between">
             <button type="button" @click="copyClipboard" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Share Meeting</button>
             <button type="button" id="join-btn" @click="toggleRoom" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">{{hasJoined ? 'Leave Room' : 'Join Room'}}</button>
-            <button type="button" id="screen-share-btn" @click="screenShare" v-if="hasJoined">Screen Share</button>
+            <button type="button" id="screen-share-btn" @click="screenShare" v-if="hasJoined" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">Screen Share</button>
 
             <button type="button" @click="record" v-if="hasJoined" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Record</button>
           </div>
@@ -101,12 +101,16 @@ export default {
 
         }
       } catch (e) {
-        console.log(e)
+        alert(e)
       }
 
     },
     screenShare () {
-      this.$refs.webrtc.shareScreen()
+      try {
+        this.$refs.webrtc.shareScreen()
+      } catch (e) {
+        alert('Screen share not available')
+      }
     },
     async addTrack() {
       try {
@@ -115,7 +119,7 @@ export default {
           this.userStream.addTrack(stream)
         })
       } catch (e) {
-          console.log(e)
+          alert(e)
       }
     },
     joinedRoom (streamId) {
