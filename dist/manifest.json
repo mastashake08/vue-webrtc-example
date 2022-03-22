@@ -1,0 +1,29 @@
+{
+  "background_color": "#ffffff",
+  "description": "Free WebRTC meeting room application! Share voice, video and screen with others in real time! Open source alternative to Google Meet.",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "J Comp Meet",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "J Comp Meet",
+  "start_url": "/",
+  "theme_color": "#ffffff",
+  "categories": [],
+  "screenshots": [],
+  "icons": [
+    {
+      "src": "/favicon.ico"
+    },
+    {
+      "src": "https://meet.jcompsolu.com/default.png",
+      "type": "image/png",
+      "sizes": "1000x1000"
+    },
+    {
+      "src": "/favicon.ico",
+      "type": "image/x-icon"
+    }
+  ],
+  "shortcuts": []
+}

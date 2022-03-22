@@ -7,6 +7,7 @@
       data-ad-client="ca-pub-7023023584987784"
       data-ad-slot="5070366491">
     </Adsense>
+
     <div class="flex mb-4 mt-4 ml-4 mr-4 pb-4">
         <div class="w-full content-center h-12">
           <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -23,23 +24,20 @@
 
             <button type="button" @click="record" v-if="hasJoined" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Record</button>
           </div>
-          <vue-webrtc id="call-canvas" width="80%" :roomId="roomId" ref="webrtc" v-on:share-started="shareStarted"  class="w-full" v-on:share-stopped="leftRoom" v-on:left-room="leftRoom" v-on:joined-room="joinedRoom"/>
+          <vue-webrtc id="call-canvas" :roomId="roomId" ref="webrtc" v-on:share-started="shareStarted"  class="w-full" v-on:share-stopped="leftRoom" v-on:left-room="leftRoom" v-on:joined-room="joinedRoom" width="100%"/>
+          <p class="content-center">
+            J Comp Meet is a free open source WebRTC meeting application written in Vue.js. Simply enter
+            a meeting room ID and connect to anyone else in that room! You can even share your screen
+            if you are on desktop! Future functionality will include:
+            <ul>
+              <li> Record meeting </li>
+              <li> Text chat </li>
+              <li> Send files </li>
+              <li> And more! </li>
+            </ul>
+          </p>
         </form>
       </div>
-    </div>
-
-    <div class="container mx-auto px-4 py-4 bg-white-300">
-      <p class="content-center">
-        J Comp Meet is a free open source WebRTC meeting application written in Vue.js. Simply enter
-        a meeting room ID and connect to anyone else in that room! You can even share your screen
-        if you are on desktop! Future functionality will include:
-        <ul>
-          <li> Record meeting </li>
-          <li> Text chat </li>
-          <li> Send files </li>
-          <li> And more! </li>
-        </ul>
-      </p>
     </div>
 
 
@@ -70,7 +68,6 @@ export default {
       var blob = new Blob(this.chunks, { 'type' : 'video/webm' }); // other types are available such as 'video/webm' for instance, see the doc for more info
       this.chunks = [];
       const file = new File ([blob], 'meeting.webm', { 'type' : 'video/webm' })
-      console.log(file)
       var a = document.createElement("a"),
                 url = URL.createObjectURL(file);
         a.href = url;
@@ -80,7 +77,6 @@ export default {
     },
     pushData (e) {
       this.chunks.push(e.data);
-      console.log(e.data)
     },
     record () {
       this.mediaRecorder.start()

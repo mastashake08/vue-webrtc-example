@@ -19,12 +19,27 @@
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://meet.jcompsolu.com/default.png">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <link rel='manifest' href='/manifest.json'>
     <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
   <body>
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
+    <script type="module">
+     // This is the "Offline copy of pages" service worker
+
+     /*
+      This code uses the pwa-update web component https://github.com/pwa-builder/pwa-update to register your service worker,
+      tell the user when there is an update available and let the user know when your PWA is ready to use offline.
+     */
+
+     import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
+
+     const el = document.createElement('pwa-update');
+     document.body.appendChild(el);
+
+     </script>
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
