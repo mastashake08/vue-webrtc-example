@@ -1,28 +1,47 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/default-monochrome-white.svg" class="animate-fade-slow object-contain h-80 w-full">
+    <div class="bg-black-50">
+      <img alt="J Comp Meet Logo" src="./assets/default-monochrome-white.svg" class="object-scale-down h-48 w-96">
+    </div>
     <Adsense
       data-ad-client="ca-pub-7023023584987784"
       data-ad-slot="5070366491">
     </Adsense>
-    <p>
-      J Comp Meet is a free open source WebRTC meeting application written in Vue.js. Simply enter
-      a meeting room ID and connect to anyone else in that room! You can even share your screen
-      if you are on desktop! Future functionality will include:
-      <ul>
-        <li> Record meeting </li>
-        <li> Text chat </li>
-        <li> Send files </li>
-        <li> And more! </li>
-      </ul>
-    </p>
-    <input v-model="roomId" placeholder="Enter room ID" id="room-input"/>
-    <br>
-    <button @click="copyClipboard">Share Meeting</button>
-    <vue-webrtc id="call-canvas" width="100%" :roomId="roomId" ref="webrtc" v-on:share-started="shareStarted"  v-on:share-stopped="leftRoom" v-on:left-room="leftRoom" v-on:joined-room="joinedRoom"/>
-    <button type="button" id="join-btn" @click="toggleRoom">{{hasJoined ? 'Leave Room' : 'Join Room'}}</button>
-    <button type="button" id="screen-share-btn" @click="screenShare" v-if="hasJoined">Screen Share</button>
-    <!-- <button @click="record" v-if="hasJoined" v->Record</button> -->
+    <div class="container mx-auto px-4 py-4 bg-white-300">
+      <p class="content-center">
+        J Comp Meet is a free open source WebRTC meeting application written in Vue.js. Simply enter
+        a meeting room ID and connect to anyone else in that room! You can even share your screen
+        if you are on desktop! Future functionality will include:
+        <ul>
+          <li> Record meeting </li>
+          <li> Text chat </li>
+          <li> Send files </li>
+          <li> And more! </li>
+        </ul>
+      </p>
+    </div>
+
+    <div class="flex mb-4 mt-4 ml-4 mr-4 pb-4">
+        <div class="w-full content-center h-12">
+          <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <div class="mb-4">
+              <label class="block text-gray-700 text-sm font-bold mb-2" for="room-input">
+                Room ID
+              </label>
+              <input v-model="roomId" placeholder="Enter room ID" id="room-input" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
+            </div>
+          <div class="flex items-center justify-between">
+            <button type="button" @click="copyClipboard" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Share Meeting</button>
+            <button type="button" id="join-btn" @click="toggleRoom" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">{{hasJoined ? 'Leave Room' : 'Join Room'}}</button>
+            <button type="button" id="screen-share-btn" @click="screenShare" v-if="hasJoined">Screen Share</button>
+
+            <button type="button" @click="record" v-if="hasJoined" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Record</button>
+          </div>
+          <vue-webrtc id="call-canvas" width="80%" :roomId="roomId" ref="webrtc" v-on:share-started="shareStarted"  class="w-full" v-on:share-stopped="leftRoom" v-on:left-room="leftRoom" v-on:joined-room="joinedRoom"/>
+        </form>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -33,9 +52,9 @@ export default {
     return {
       roomId: 'roomId',
       hasJoined: false,
-      mediaRecorder: null,
+      mediaRecorder: {},
       chunks: [],
-      userStream: null
+      userStream: {}
     }
   },
   mounted () {
@@ -88,13 +107,10 @@ export default {
     screenShare () {
       this.$refs.webrtc.shareScreen()
     },
-    async addTrack(streamId) {
+    async addTrack() {
       try {
-        console.log(streamId)
         const streams = this.$refs.webrtc.videoList
-        console.log(streams)
         streams.forEach(stream => {
-          console.log(stream.getTracks())
           this.userStream.addTrack(stream)
         })
       } catch (e) {
@@ -116,6 +132,18 @@ export default {
     async copyClipboard () {
       await navigator.clipboard.writeText(`https://meet.jcompsolu.com/#${this.roomId}`)
       alert('Link copied to clipboard!')
+    },
+    async share () {
+    const shareData = {
+        title: 'J Comp Meet',
+        text: 'Join my meeting!',
+        url: `https://meet.jcompsolu.com/#${this.roomId}`
+      }
+      try {
+      await navigator.share(shareData)
+      } catch(err) {
+      this.copyClipboard()
+      }
     }
   }
 }
